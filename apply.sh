@@ -60,11 +60,10 @@ rm ~/.zshrc
 
 cp $PWD/zshrc ~/.zshrc
 
-# GitUI
-mkdir -p ~/.config/gitui
-rm ~/.config/gitui/key_bindings.ron
+# ZED
+mkdir -p ~/.config/zed
 
-ln -s $PWD/config/gitui/key_bindings.ron ~/.config/gitui/key_bindings.ron
+ln -s $PWD/config/zed/* ~/.config/zed
 
 # ------------ MacOS -----------
 # skhd
