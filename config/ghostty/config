@@ -2,7 +2,7 @@ macos-titlebar-style = hidden
 click-repeat-interval = 10
 # font-family = "CaskaydiaCove Nerd Font Mono"
 background-opacity = 0.85
-theme = "GruvboxDarkHard"
+theme = "Gruvbox Dark Hard"
 # theme = "iTerm2 Pastel Dark Background"
 
 macos-option-as-alt = left

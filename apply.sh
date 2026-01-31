@@ -1,79 +1,65 @@
 #!/bin/bash
+set -e
 
-# Nix
-
-rm ~/.config/nix-darwin/flake.nix
-
-mkdir -p ~/.config/nix-darwin
-
-ln -s $PWD/config/nix-darwin/flake.nix ~/.config/nix-darwin/flake.nix
-
-# To update packages installed via Nix in ~/.config/nix-darwin
-# nix flake update --impure nixpkgs
-
-darwin-rebuild switch --impure --flake ~/.config/nix-darwin#pdudko
+DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
 # Helix
-# rm ~/.config/helix/runtime
-rm ~/.config/helix/languages.toml
-rm ~/.config/helix/config.toml
-rm ~/.config/helix/yazi-picker.sh
-
 mkdir -p ~/.config/helix
-
-# ln -s ~/helix/runtime ~/.config/helix/runtime
-ln -s $PWD/config/helix/languages.toml ~/.config/helix/languages.toml
-ln -s $PWD/config/helix/config.toml ~/.config/helix/config.toml
-ln -s $PWD/config/helix/yazi-picker.sh ~/.config/helix/yazi-picker.sh
+ln -sf "$DOTFILES/config/helix/languages.toml" ~/.config/helix/languages.toml
+ln -sf "$DOTFILES/config/helix/config.toml" ~/.config/helix/config.toml
+ln -sf "$DOTFILES/config/helix/yazi-picker.sh" ~/.config/helix/yazi-picker.sh
 
 # Alacritty
-rm ~/.config/alacritty
-
-ln -s $PWD/config/alacritty ~/.config/alacritty
+rm -rf ~/.config/alacritty
+ln -s "$DOTFILES/config/alacritty" ~/.config/alacritty
 
 # Ghostty
 mkdir -p ~/.config/ghostty
-rm ~/.config/ghostty/config
-
-ln -s $PWD/config/ghostty/config ~/.config/ghostty/config
+ln -sf "$DOTFILES/config/ghostty/config" ~/.config/ghostty/config
 
 # Zellij
 mkdir -p ~/.config/zellij
-rm ~/.config/zellij/config.kdl
-
-cp $PWD/config/zellij/config.kdl ~/.config/zellij/config.kdl
+cp "$DOTFILES/config/zellij/config.kdl" ~/.config/zellij/config.kdl
 
 # Yazi
 mkdir -p ~/.config/yazi
-rm ~/.config/yazi/yazi.toml
-
-ln -s $PWD/config/yazi/yazi.toml ~/.config/yazi/yazi.toml
-
-# # TMUX
-# rm ~/.tmux.conf
-
-# ln -s $PWD/tmux.conf ~/.tmux.conf
-# tmux source-file ~/.tmux.conf
+ln -sf "$DOTFILES/config/yazi/yazi.toml" ~/.config/yazi/yazi.toml
 
 # ZSH
-rm ~/.zshrc
+ln -sf "$DOTFILES/zshrc" ~/.zshrc
 
-cp $PWD/zshrc ~/.zshrc
-
-# ZED
+# Zed
 mkdir -p ~/.config/zed
+for file in "$DOTFILES/config/zed"/*; do
+    ln -sf "$file" ~/.config/zed/
+done
 
-ln -s $PWD/config/zed/* ~/.config/zed
+# ------------ Linux only -----------
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Niri
+    mkdir -p ~/.config/niri
+    ln -sf "$DOTFILES/config/niri/config.kdl" ~/.config/niri/config.kdl
 
-# ------------ MacOS -----------
-# skhd
-mkdir -p ~/.config/skhd
-rm ~/.config/skhd/skhdrc
-ln -s $PWD/config/skhd/skhdrc ~/.config/skhd/skhdrc
-skhd --restart-service
+    # Waybar
+    rm -rf ~/.config/waybar
+    ln -s "$DOTFILES/config/waybar" ~/.config/waybar
+    killall -SIGUSR2 waybar 2>/dev/null || true
+fi
 
-# yabai
-mkdir -p ~/.config/yabai
-rm ~/.config/yabai/yabairc
-ln -s $PWD/config/yabai/yabairc ~/.config/yabai/yabairc
-yabai --restart-service
+# ------------ macOS only -----------
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Nix
+    mkdir -p ~/.config/nix-darwin
+    ln -sf "$DOTFILES/config/nix-darwin/flake.nix" ~/.config/nix-darwin/flake.nix
+    darwin-rebuild switch --impure --flake ~/.config/nix-darwin#pdudko
+
+    # skhd
+    mkdir -p ~/.config/skhd
+    ln -sf "$DOTFILES/config/skhd/skhdrc" ~/.config/skhd/skhdrc
+    skhd --restart-service
+
+    # yabai
+    mkdir -p ~/.config/yabai
+    ln -sf "$DOTFILES/config/yabai/yabairc" ~/.config/yabai/yabairc
+    yabai --restart-service
+fi

@@ -99,9 +99,12 @@ plugins=(
   zsh-autosuggestions
 )
 
+# Helix alias for Arch (where binary is 'helix' not 'hx')
+command -v hx &> /dev/null || alias hx="helix"
+
 # export EDITOR=/opt/homebrew/bin/hx
 # export EDITOR=/run/current-system/sw/bin/hx
-export EDITOR=`which hx`
+export EDITOR=$(command -v hx || command -v helix)
 
 # source $ZSH/oh-my-zsh.sh
 
