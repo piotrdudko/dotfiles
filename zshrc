@@ -138,7 +138,9 @@ bindkey "^[[1;5D" backward-word
 
 alias ls="eza -lo --grid"
 
-export PKG_CONFIG_PATH="$(brew --prefix postgresql@15)/lib/pkgconfig:${PKG_CONFIG_PATH}"
+if command -v brew &> /dev/null; then
+  export PKG_CONFIG_PATH="$(brew --prefix postgresql@15)/lib/pkgconfig:${PKG_CONFIG_PATH}"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

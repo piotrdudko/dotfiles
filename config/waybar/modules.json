@@ -187,16 +187,28 @@
 
   // CPU
   "cpu": {
-    "format": "  {usage}%",
+    "format": "󰻠  {usage}%",
     "tooltip": true,
     "interval": 2
   },
 
   // Memory
   "memory": {
-    "format": "  {percentage}%",
+    "format": "󰍛  {percentage}%",
     "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
     "interval": 2
+  },
+
+  // Network
+  "network": {
+    "format-wifi": "{icon}   {essid}",
+    "format-ethernet": " ",
+    "format-disconnected": "󰤭 ",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}: {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor"
   },
 
   // Media Player

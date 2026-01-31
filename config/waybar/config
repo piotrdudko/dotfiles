@@ -26,6 +26,7 @@
         "memory",
         "custom/weather",
         "tray",
+        "network",
         "bluetooth",
         "pulseaudio",
         "battery",

@@ -28,6 +28,8 @@ window#waybar {
 #custom-notification,
 #custom-weather,
 #custom-exit,
+#cpu,
+#memory,
 #mpris {
     background-color: rgba(30, 34, 42, 0.85);
     border-radius: 10px;
@@ -138,6 +140,25 @@ tooltip {
     to {
         background-color: rgba(230, 81, 0, 0.5);
     }
+}
+
+/* CPU */
+#cpu {
+    color: #a3be8c;
+}
+
+/* Memory */
+#memory {
+    color: #81a1c1;
+}
+
+/* Network */
+#network {
+    color: #00ac89;
+}
+
+#network.disconnected {
+    color: #808080;
 }
 
 /* Bluetooth */

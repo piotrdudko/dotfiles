@@ -39,6 +39,11 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Niri
     mkdir -p ~/.config/niri
     ln -sf "$DOTFILES/config/niri/config.kdl" ~/.config/niri/config.kdl
+    niri msg action reload-config 2>/dev/null || true
+
+    # wpaperd (wallpaper daemon)
+    mkdir -p ~/.config/wpaperd
+    ln -sf "$DOTFILES/config/wpaperd/config.toml" ~/.config/wpaperd/config.toml
 
     # Waybar
     rm -rf ~/.config/waybar
